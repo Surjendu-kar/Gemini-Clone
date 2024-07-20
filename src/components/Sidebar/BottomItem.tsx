@@ -46,7 +46,7 @@ const SettingContainer = styled(HelpContainer)(({ theme }) => ({
   [theme.breakpoints.down("sm")]: {},
 }));
 
-const Text = styled(Typography)(({ theme }) => ({
+const Text = styled(Typography)(() => ({
   margin: 0,
 }));
 
