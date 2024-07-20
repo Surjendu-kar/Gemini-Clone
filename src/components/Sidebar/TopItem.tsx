@@ -1,5 +1,6 @@
 import { Box, styled, Typography } from "@mui/material";
 import { assets } from "../../assets/assets";
+import { TopItemProps } from "../../types";
 
 const MainContainer = styled(Box)(({ theme }) => ({
   [theme.breakpoints.down("lg")]: {},
@@ -23,7 +24,7 @@ const MenuIcon = styled(ImgIcon)(({ theme }) => ({
 }));
 
 const NewChat = styled(Box)(({ theme }) => ({
-  marginTop: "10px",
+  marginTop: "50px",
   display: "inline-flex",
   alignItems: "center",
   gap: theme.spacing(1),
@@ -64,32 +65,43 @@ const RecentEntry = styled(Box)(({ theme }) => ({
   borderRadius: "50px",
   color: "#282828",
   cursor: "pointer",
-  
+
+  "&:hover": {
+    backgroundColor: "#e2e6eb",
+  },
+
   [theme.breakpoints.down("lg")]: {},
   [theme.breakpoints.down("md")]: {},
   [theme.breakpoints.down("sm")]: {},
 }));
 
-function TopItem() {
+function TopItem({ extended, setExtended }: TopItemProps) {
   return (
     <MainContainer>
-      <MenuIcon src={assets.menu_icon} alt="menu icon"></MenuIcon>
+      <MenuIcon
+        src={assets.menu_icon}
+        alt="menu icon"
+        // onClick={() => setExtended((prev) => (prev === true ? false : true))}
+        onClick={() => setExtended((prev) => !prev)} //same logic
+      />
 
       {/* Add New Chat*/}
       <NewChat>
         <ImgIcon src={assets.plus_icon} alt="plus icon"></ImgIcon>
-        <Typography> New Chat</Typography>
+        {extended && <Typography> New Chat</Typography>}
       </NewChat>
 
       {/* Show Previous Chats*/}
-      <RecentChat>
-        <RecentTypo>Recent</RecentTypo>
+      {extended && (
+        <RecentChat>
+          <RecentTypo>Recent</RecentTypo>
 
-        <RecentEntry>
-          <ImgIcon src={assets.message_icon} alt="message icon" />
-          <Typography>what is. ..</Typography>
-        </RecentEntry>
-      </RecentChat>
+          <RecentEntry>
+            <ImgIcon src={assets.message_icon} alt="message icon" />
+            <Typography>what is React..</Typography>
+          </RecentEntry>
+        </RecentChat>
+      )}
     </MainContainer>
   );
 }
