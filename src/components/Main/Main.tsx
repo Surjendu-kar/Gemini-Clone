@@ -2,6 +2,7 @@ import { Box } from "@mui/material";
 import Header from "./Header";
 import { styled } from "@mui/system";
 import DisplayData from "./DisplayData";
+import SearchBar from "./SearchBar";
 
 const MainContainer = styled(Box)(({ theme }) => ({
   flex: 1,
@@ -18,6 +19,7 @@ function Main() {
     <MainContainer>
       <Header />
       <DisplayData />
+      <SearchBar/>
     </MainContainer>
   );
 }
