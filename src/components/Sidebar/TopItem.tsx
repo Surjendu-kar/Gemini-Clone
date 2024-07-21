@@ -18,6 +18,7 @@ const ImgIcon = styled("img")(({ theme }) => ({
 const MenuIcon = styled(ImgIcon)(({ theme }) => ({
   display: "block",
   marginLeft: "10px",
+  cursor: "pointer",
   [theme.breakpoints.down("lg")]: {},
   [theme.breakpoints.down("md")]: {},
   [theme.breakpoints.down("sm")]: {},
