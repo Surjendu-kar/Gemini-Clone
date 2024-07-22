@@ -1,8 +1,11 @@
 import { Box } from "@mui/material";
 import Header from "./Header";
 import { styled } from "@mui/system";
-import DisplayData from "./DisplayData";
+import DisplayDefaultData from "./DisplayDefaultData";
 import SearchBar from "./SearchBar";
+import { useContext } from "react";
+import { Context } from "../../context/Context";
+import DisplayData from "./DisplayData";
 
 const MainContainer = styled(Box)(({ theme }) => ({
   flex: 1,
@@ -14,14 +17,33 @@ const MainContainer = styled(Box)(({ theme }) => ({
   [theme.breakpoints.down("sm")]: {},
 }));
 
-function Main() {
+const Main = () => {
+  const context = useContext(Context);
+
+  const {
+    onSent,
+    recentPrompt,
+    showResult,
+    loading,
+    resultData,
+    input,
+    setInput,
+  } = context;
   return (
     <MainContainer>
       <Header />
-      <DisplayData />
-      <SearchBar/>
+      {!showResult ? (
+        <DisplayDefaultData />
+      ) : (
+        <DisplayData
+          recentPrompt={recentPrompt}
+          resultData={resultData}
+          loading={loading}
+        />
+      )}
+      <SearchBar setInput={setInput} input={input} onSent={onSent} />
     </MainContainer>
   );
-}
+};
 
 export default Main;

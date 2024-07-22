@@ -1,3 +1,4 @@
+import { FC } from "react";
 import { Box, styled } from "@mui/material";
 import { assets } from "../../assets/assets";
 
@@ -64,15 +65,27 @@ const BottomInfo = styled("p")(({ theme }) => ({
   [theme.breakpoints.down("md")]: {},
   [theme.breakpoints.down("sm")]: {},
 }));
-function SearchBar() {
+
+type Props = Pick<ContextType, "input" | "setInput" | "onSent">;
+
+const SearchBar: FC<Props> = ({ setInput, input, onSent }) => {
   return (
     <MainContainer>
       <SearchBox>
-        <InputField type="text" placeholder="Enter a prompt here" />
+        <InputField
+          type="text"
+          placeholder="Enter a prompt here"
+          onChange={(e) => setInput(e.target.value)}
+          value={input}
+        />
         <InputBox>
-          <ImgIcon src={assets.gallery_icon} alt="" />
-          <ImgIcon src={assets.mic_icon} alt="" />
-          <ImgIcon src={assets.send_icon} alt="" />
+          <ImgIcon src={assets.gallery_icon} alt="gallery-icon" />
+          <ImgIcon src={assets.mic_icon} alt="mic-icon" />
+          <ImgIcon
+            src={assets.send_icon}
+            alt="send-icon"
+            onClick={() => onSent(input)}
+          />  
         </InputBox>
       </SearchBox>
       <BottomInfo>
@@ -81,6 +94,6 @@ function SearchBar() {
       </BottomInfo>
     </MainContainer>
   );
-}
+};
 
 export default SearchBar;

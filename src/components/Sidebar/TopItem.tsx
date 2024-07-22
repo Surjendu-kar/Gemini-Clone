@@ -1,6 +1,5 @@
 import { Box, styled, Typography } from "@mui/material";
 import { assets } from "../../assets/assets";
-import { TopItemProps } from "../../types";
 
 const MainContainer = styled(Box)(({ theme }) => ({
   [theme.breakpoints.down("lg")]: {},
