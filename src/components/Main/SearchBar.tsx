@@ -27,7 +27,9 @@ const SearchBox = styled(Box)(({ theme }) => ({
   borderRadius: "50px",
   [theme.breakpoints.down("lg")]: {},
   [theme.breakpoints.down("md")]: {},
-  [theme.breakpoints.down("sm")]: {},
+  [theme.breakpoints.down("sm")]: {
+    padding: "5px 10px",
+  },
 }));
 const InputField = styled("input")(({ theme }) => ({
   flex: 1,
@@ -38,7 +40,10 @@ const InputField = styled("input")(({ theme }) => ({
   fontSize: "18px",
   [theme.breakpoints.down("lg")]: {},
   [theme.breakpoints.down("md")]: {},
-  [theme.breakpoints.down("sm")]: {},
+  [theme.breakpoints.down("sm")]: {
+    flex: "none",
+    // width: "150px",
+  },
 }));
 const InputBox = styled(Box)(({ theme }) => ({
   display: "flex",
@@ -46,7 +51,7 @@ const InputBox = styled(Box)(({ theme }) => ({
   gap: theme.spacing(1.5),
   [theme.breakpoints.down("lg")]: {},
   [theme.breakpoints.down("md")]: {},
-  [theme.breakpoints.down("sm")]: {},
+  [theme.breakpoints.down("sm")]: { gap: theme.spacing(1) },
 }));
 const ImgIcon = styled("img")(({ theme }) => ({
   width: "24px",
@@ -54,7 +59,9 @@ const ImgIcon = styled("img")(({ theme }) => ({
 
   [theme.breakpoints.down("lg")]: {},
   [theme.breakpoints.down("md")]: {},
-  [theme.breakpoints.down("sm")]: {},
+  [theme.breakpoints.down("sm")]: {
+    width: "20px",
+  },
 }));
 
 const BottomInfo = styled("p")(({ theme }) => ({
