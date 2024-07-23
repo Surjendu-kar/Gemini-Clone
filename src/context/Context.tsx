@@ -33,7 +33,7 @@ const ContextProvider: React.FC<ContextProviderProps> = (props) => {
   const delayPara = (index: number, nextWord: string) => {
     setTimeout(function () {
       setResultData((prev) => prev + nextWord);
-    }, 75 * index);
+    }, 50 * index);
   };
 
   const newChat = () => {
@@ -56,27 +56,30 @@ const ContextProvider: React.FC<ContextProviderProps> = (props) => {
     }
 
     // Convert main heading
-    result = result.replace(/^## (.+)$/m, "<h3>$1</h3>");
+    result = result.replace(/^## (.+)$/gm, "<h2>$1</h2>");
+
+    // Add line breaks before bold text ending with colon or question mark
+    result = result.replace(/\n(\*\*.+?[:?]\*\*)/g, "<br/><h3>$1</h3>");
 
     // Convert bold text
-    const resultArr = result.split("**");
-    let newResponse = "";
+    result = result.replace(/\*\*(.+?)\*\*/g, "<b>$1</b>");
 
-    for (let i = 0; i < resultArr.length; i++) {
-      if (i === 0 || i % 2 !== 1) {
-        newResponse += resultArr[i];
-      } else {
-        newResponse += "<b>" + resultArr[i] + "</b>";
-      }
-    }
+    // Convert hyphens to bullet points and add line breaks
+    result = result.replace(/^\s*-\s+/gm, "<br/>• ");
 
-    // Add line breaks for list items
-    newResponse = newResponse.replace(/\n(\d+)\. /g, "<br/><br/>$1. ");
+    // Add line breaks for numbered list items and ensure proper spacing
+    result = result.replace(/(\d+)\.\s+/g, "<br/>$1. ");
+
+    // Add line breaks for bullet points (if any)
+    result = result.replace(/•\s+/g, "<br/><br/>• ");
 
     // Replace all asterisks with line breaks
-    newResponse = newResponse.split("*").join("<br/>");
-    
-    const newResponseArr = newResponse.split(" ");
+    result = result.split("*").join("<br/>");
+
+    // Ensure consistent spacing after colons in list items
+    result = result.replace(/:\s+/g, ": ");
+
+    const newResponseArr = result.split(" ");
     for (let i = 0; i < newResponseArr.length; i++) {
       delayPara(i, newResponseArr[i] + " ");
     }

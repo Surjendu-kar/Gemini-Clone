@@ -45,6 +45,7 @@ const NewChat = styled(Box)(({ theme }) => ({
 const RecentChat = styled(Box)(({ theme }) => ({
   display: "flex",
   flexDirection: "column",
+  animation: "fadeIn 1.5s", //declared in index.css file
 
   [theme.breakpoints.down("lg")]: {},
   [theme.breakpoints.down("md")]: {},
