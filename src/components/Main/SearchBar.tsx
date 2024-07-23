@@ -84,8 +84,11 @@ const SearchBar: FC<Props> = ({ setInput, input, onSent }) => {
           <ImgIcon
             src={assets.send_icon}
             alt="send-icon"
-            onClick={() => onSent(input)}
-          />  
+            onClick={() => {
+              if (input.length !== 0) onSent("");
+              setInput("");
+            }}
+          />
         </InputBox>
       </SearchBox>
       <BottomInfo>

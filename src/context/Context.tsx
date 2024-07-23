@@ -17,6 +17,7 @@ const defaultContext: ContextType = {
   setPrevPrompts: () => {},
   setRecentPrompt: () => {},
   showResult: false,
+  newChat: () => {},
 };
 
 export const Context = createContext<ContextType>(defaultContext);
@@ -35,14 +36,28 @@ const ContextProvider: React.FC<ContextProviderProps> = (props) => {
     }, 75 * index);
   };
 
-  const onSent = async () => {
+  const newChat = () => {
+    setLoading(false);
+    setShowResult(false);
+  };
+
+  const onSent = async (prompt: string) => {
     setResultData("");
     setLoading(true);
     setShowResult(true);
-    setRecentPrompt(input);
-    setPrevPrompts((prev) => [...prev, input]);
+    let result;
+    if (prompt !== "") {
+      result = await run(prompt);
+      setRecentPrompt(prompt);
+    } else {
+      setPrevPrompts((prev) => [...prev, input]);
+      setRecentPrompt(input);
+      result = await run(input);
+    }
+    // setRecentPrompt(input);
+    // setPrevPrompts((prev) => [...prev, input]);
 
-    const result = await run(input);
+    // const result = await run(input);
     const resultArr = result.split("**");
     let newResponse = "";
 
@@ -61,7 +76,6 @@ const ContextProvider: React.FC<ContextProviderProps> = (props) => {
     }
 
     setLoading(false);
-    setInput("");
   };
 
   const contextValue = {
@@ -75,6 +89,7 @@ const ContextProvider: React.FC<ContextProviderProps> = (props) => {
     resultData,
     input,
     setInput,
+    newChat,
   };
   return (
     <Context.Provider value={contextValue}>{props.children}</Context.Provider>

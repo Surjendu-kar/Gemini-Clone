@@ -4,6 +4,7 @@ import { assets } from "../../assets/assets";
 const MainContainer = styled(Box)(({ theme }) => ({
   maxWidth: "900px",
   margin: "auto",
+
   [theme.breakpoints.down("lg")]: {},
   [theme.breakpoints.down("md")]: {},
   [theme.breakpoints.down("sm")]: {},

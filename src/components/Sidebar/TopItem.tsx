@@ -34,6 +34,9 @@ const NewChat = styled(Box)(({ theme }) => ({
   fontSize: "14px",
   color: "grey",
   cursor: "pointer",
+  "&:hover": {
+    backgroundColor: "#fff",
+  },
   [theme.breakpoints.down("lg")]: {},
   [theme.breakpoints.down("md")]: {},
   [theme.breakpoints.down("sm")]: {},
@@ -75,7 +78,19 @@ const RecentEntry = styled(Box)(({ theme }) => ({
   [theme.breakpoints.down("sm")]: {},
 }));
 
-function TopItem({ extended, setExtended }: TopItemProps) {
+function TopItem({
+  extended,
+  setExtended,
+  prevPrompts,
+  onSent,
+  setRecentPrompt,
+  newChat,
+}: TopItemProps) {
+  const loadPrompt = async (prompt: string) => {
+    setRecentPrompt(prompt);
+    await onSent(prompt);
+  };
+
   return (
     <MainContainer>
       <MenuIcon
@@ -86,7 +101,7 @@ function TopItem({ extended, setExtended }: TopItemProps) {
       />
 
       {/* Add New Chat*/}
-      <NewChat>
+      <NewChat onClick={() => newChat()}>
         <ImgIcon src={assets.plus_icon} alt="plus icon"></ImgIcon>
         {extended && <Typography> New Chat</Typography>}
       </NewChat>
@@ -95,11 +110,14 @@ function TopItem({ extended, setExtended }: TopItemProps) {
       {extended && (
         <RecentChat>
           <RecentTypo>Recent</RecentTypo>
-
-          <RecentEntry>
-            <ImgIcon src={assets.message_icon} alt="message icon" />
-            <Typography>what is React..</Typography>
-          </RecentEntry>
+          {prevPrompts.map((item, index) => {
+            return (
+              <RecentEntry onClick={() => loadPrompt(item)} key={index}>
+                <ImgIcon src={assets.message_icon} alt="message icon" />
+                <Typography>{item.slice(0, 18)}..</Typography>
+              </RecentEntry>
+            );
+          })}
         </RecentChat>
       )}
     </MainContainer>

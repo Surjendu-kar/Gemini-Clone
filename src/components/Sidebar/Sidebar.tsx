@@ -1,10 +1,12 @@
 import { Box, styled } from "@mui/material";
 import TopItem from "./TopItem";
 import BottomItem from "./BottomItem";
-import { useState } from "react";
+import { useContext, useState } from "react";
+import { Context } from "../../context/Context";
 
 function Sidebar() {
   const [extended, setExtended] = useState<boolean>(false);
+  const { onSent, prevPrompts, setRecentPrompt, newChat } = useContext(Context);
 
   const MainContainer = styled(Box)(({ theme }) => ({
     minHeight: "100vh",
@@ -22,7 +24,14 @@ function Sidebar() {
 
   return (
     <MainContainer>
-      <TopItem extended={extended} setExtended={setExtended} />
+      <TopItem
+        newChat={newChat}
+        extended={extended}
+        setExtended={setExtended}
+        prevPrompts={prevPrompts}
+        onSent={onSent}
+        setRecentPrompt={setRecentPrompt}
+      />
       <BottomItem extended={extended} />
     </MainContainer>
   );

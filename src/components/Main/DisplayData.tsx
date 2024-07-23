@@ -4,6 +4,9 @@ import { assets } from "../../assets/assets";
 import { keyframes } from "@emotion/react";
 
 const MainContainer = styled(Box)(({ theme }) => ({
+  maxWidth: "900px",
+  margin: "0 auto",
+
   padding: "0px 5%",
   maxHeight: "70vh",
   overflowY: "scroll",

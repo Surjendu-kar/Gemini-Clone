@@ -1,6 +1,10 @@
 interface TopItemProps {
   extended: boolean;
   setExtended: React.Dispatch<React.SetStateAction<boolean>>;
+  prevPrompts: string[];
+  onSent: (prompt: string) => Promise<void>;
+  setRecentPrompt: React.Dispatch<React.SetStateAction<string>>;
+  newChat: () => void;
 }
 
 interface BottomItemProps {
@@ -18,4 +22,5 @@ interface ContextType extends SearchBarProps {
   resultData: string;
   input: string;
   setInput: React.Dispatch<React.SetStateAction<string>>;
+  newChat: () => void;
 }
