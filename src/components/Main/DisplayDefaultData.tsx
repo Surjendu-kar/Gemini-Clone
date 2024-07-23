@@ -12,29 +12,34 @@ const MainContainer = styled(Box)(({ theme }) => ({
 
 const Greet = styled(Box)(({ theme }) => ({
   margin: "50px 0",
-  fontSize: "56px",
+  fontSize: "3.5rem",
   color: "#c4c7c5",
   fontWeight: "500",
   padding: "20px",
   [theme.breakpoints.down("lg")]: {},
   [theme.breakpoints.down("md")]: {},
-  [theme.breakpoints.down("sm")]: {},
+  [theme.breakpoints.down("sm")]: {
+    fontSize: "2.5rem",
+  },
 }));
 
 const MainHeading = styled("span")(({ theme }) => ({
+  fontSize: "3.5rem",
   background: "linear-gradient(16deg,#4b90ff,#ff5546)",
   WebkitBackgroundClip: "text",
   WebkitTextFillColor: "transparent",
   [theme.breakpoints.down("lg")]: {},
   [theme.breakpoints.down("md")]: {},
-  [theme.breakpoints.down("sm")]: {},
+  [theme.breakpoints.down("sm")]: {
+    fontSize: "2.5rem",
+  },
 }));
 const Title = styled(Typography)(({ theme }) => ({
   color: "#585858",
   fontSize: "17px",
   [theme.breakpoints.down("lg")]: {},
   [theme.breakpoints.down("md")]: {},
-  [theme.breakpoints.down("sm")]: {},
+  [theme.breakpoints.down("sm")]: { fontSize: "15px" },
 }));
 
 const Cards = styled(Box)(({ theme }) => ({
@@ -44,7 +49,10 @@ const Cards = styled(Box)(({ theme }) => ({
   padding: "20px",
   [theme.breakpoints.down("lg")]: {},
   [theme.breakpoints.down("md")]: {},
-  [theme.breakpoints.down("sm")]: {},
+  [theme.breakpoints.down("sm")]: {
+    gridTemplateColumns: "repeat(auto-fill,minmax(150px,1fr))",
+    padding: "10px",
+  },
 }));
 const Card = styled(Box)(({ theme }) => ({
   height: "200px",
@@ -58,7 +66,9 @@ const Card = styled(Box)(({ theme }) => ({
   },
   [theme.breakpoints.down("lg")]: {},
   [theme.breakpoints.down("md")]: {},
-  [theme.breakpoints.down("sm")]: {},
+  [theme.breakpoints.down("sm")]: {
+    height: "150px",
+  },
 }));
 
 const ImgIcon = styled("img")(({ theme }) => ({

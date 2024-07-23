@@ -11,7 +11,9 @@ const HeadContainer = styled(Box)(({ theme }) => ({
   color: "#585858",
   [theme.breakpoints.down("lg")]: {},
   [theme.breakpoints.down("md")]: {},
-  [theme.breakpoints.down("sm")]: {},
+  [theme.breakpoints.down("sm")]: {
+    padding: "15px",
+  },
 }));
 
 const ImgIcon = styled("img")(({ theme }) => ({
@@ -19,7 +21,9 @@ const ImgIcon = styled("img")(({ theme }) => ({
   borderRadius: "50%",
   [theme.breakpoints.down("lg")]: {},
   [theme.breakpoints.down("md")]: {},
-  [theme.breakpoints.down("sm")]: {},
+  [theme.breakpoints.down("sm")]: {
+    width: "30px",
+  },
 }));
 
 function Header() {

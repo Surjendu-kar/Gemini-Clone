@@ -14,7 +14,7 @@ const MainContainer = styled(Box)(({ theme }) => ({
 
   [theme.breakpoints.down("lg")]: {},
   [theme.breakpoints.down("md")]: {},
-  [theme.breakpoints.down("sm")]: {},
+  [theme.breakpoints.down("sm")]: { padding: "0px 10px" },
 }));
 
 const SearchBox = styled(Box)(({ theme }) => ({
@@ -43,6 +43,8 @@ const InputField = styled("input")(({ theme }) => ({
   [theme.breakpoints.down("sm")]: {
     flex: "none",
     // width: "150px",
+    padding: "8px 0",
+    fontSize: "15px",
   },
 }));
 const InputBox = styled(Box)(({ theme }) => ({
@@ -71,7 +73,10 @@ const BottomInfo = styled("p")(({ theme }) => ({
   fontWeight: 300,
   [theme.breakpoints.down("lg")]: {},
   [theme.breakpoints.down("md")]: {},
-  [theme.breakpoints.down("sm")]: {},
+  [theme.breakpoints.down("sm")]: {
+    margin: "10px auto",
+    fontSize: "10px",
+  },
 }));
 
 type Props = Pick<ContextType, "input" | "setInput" | "onSent">;
