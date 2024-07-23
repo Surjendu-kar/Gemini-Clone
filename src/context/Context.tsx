@@ -54,10 +54,11 @@ const ContextProvider: React.FC<ContextProviderProps> = (props) => {
       setRecentPrompt(input);
       result = await run(input);
     }
-    // setRecentPrompt(input);
-    // setPrevPrompts((prev) => [...prev, input]);
 
-    // const result = await run(input);
+    // Convert main heading
+    result = result.replace(/^## (.+)$/m, "<h3>$1</h3>");
+
+    // Convert bold text
     const resultArr = result.split("**");
     let newResponse = "";
 
@@ -69,8 +70,13 @@ const ContextProvider: React.FC<ContextProviderProps> = (props) => {
       }
     }
 
-    const newResponse2 = newResponse.split("*").join("</br>");
-    const newResponseArr = newResponse2.split(" ");
+    // Add line breaks for list items
+    newResponse = newResponse.replace(/\n(\d+)\. /g, "<br/><br/>$1. ");
+
+    // Replace all asterisks with line breaks
+    newResponse = newResponse.split("*").join("<br/>");
+    
+    const newResponseArr = newResponse.split(" ");
     for (let i = 0; i < newResponseArr.length; i++) {
       delayPara(i, newResponseArr[i] + " ");
     }
