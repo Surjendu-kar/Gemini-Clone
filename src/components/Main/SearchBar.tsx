@@ -1,4 +1,4 @@
-import { FC } from "react";
+import { FC, KeyboardEvent } from "react";
 import { Box, styled } from "@mui/material";
 import { assets } from "../../assets/assets";
 
@@ -51,6 +51,7 @@ const InputBox = styled(Box)(({ theme }) => ({
 const ImgIcon = styled("img")(({ theme }) => ({
   width: "24px",
   cursor: "pointer",
+
   [theme.breakpoints.down("lg")]: {},
   [theme.breakpoints.down("md")]: {},
   [theme.breakpoints.down("sm")]: {},
@@ -69,6 +70,12 @@ const BottomInfo = styled("p")(({ theme }) => ({
 type Props = Pick<ContextType, "input" | "setInput" | "onSent">;
 
 const SearchBar: FC<Props> = ({ setInput, input, onSent }) => {
+  const handleKeyDown = (event: KeyboardEvent<HTMLInputElement>) => {
+    if (event.key === "Enter" && input.length !== 0) {
+      onSent("");
+      setInput("");
+    }
+  };
   return (
     <MainContainer>
       <SearchBox>
@@ -77,18 +84,21 @@ const SearchBar: FC<Props> = ({ setInput, input, onSent }) => {
           placeholder="Enter a prompt here"
           onChange={(e) => setInput(e.target.value)}
           value={input}
+          onKeyDown={handleKeyDown}
         />
         <InputBox>
           <ImgIcon src={assets.gallery_icon} alt="gallery-icon" />
           <ImgIcon src={assets.mic_icon} alt="mic-icon" />
-          <ImgIcon
-            src={assets.send_icon}
-            alt="send-icon"
-            onClick={() => {
-              if (input.length !== 0) onSent("");
-              setInput("");
-            }}
-          />
+          {input.length > 0 && (
+            <ImgIcon
+              src={assets.send_icon}
+              alt="send-icon"
+              onClick={() => {
+                onSent("");
+                setInput("");
+              }}
+            />
+          )}
         </InputBox>
       </SearchBox>
       <BottomInfo>

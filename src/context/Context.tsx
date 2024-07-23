@@ -58,8 +58,13 @@ const ContextProvider: React.FC<ContextProviderProps> = (props) => {
     // Convert main heading
     result = result.replace(/^## (.+)$/gm, "<h2>$1</h2>");
 
-    // Add line breaks before bold text ending with colon or question mark
-    result = result.replace(/\n(\*\*.+?[:?]\*\*)/g, "<br/><h3>$1</h3>");
+    // Check if numbered list items are present
+    const hasNumberedList = /\d+\.\s+/.test(result);
+
+    if (!hasNumberedList) {
+      // Add line breaks before bold text ending with colon or question mark
+      result = result.replace(/\n(\*\*.+?[:?]\*\*)/g, "<br/><br/><h3>$1</h3>");
+    }
 
     // Convert bold text
     result = result.replace(/\*\*(.+?)\*\*/g, "<b>$1</b>");
@@ -67,11 +72,13 @@ const ContextProvider: React.FC<ContextProviderProps> = (props) => {
     // Convert hyphens to bullet points and add line breaks
     result = result.replace(/^\s*-\s+/gm, "<br/>• ");
 
-    // Add line breaks for numbered list items and ensure proper spacing
-    result = result.replace(/(\d+)\.\s+/g, "<br/>$1. ");
+    if (hasNumberedList) {
+      // Add line breaks for numbered list items and ensure proper spacing
+      result = result.replace(/(\d+)\.\s+/g, "<br/><br/>$1. ");
+    }
 
     // Add line breaks for bullet points (if any)
-    result = result.replace(/•\s+/g, "<br/><br/>• ");
+    result = result.replace(/•\s+/g, "<br/>• ");
 
     // Replace all asterisks with line breaks
     result = result.split("*").join("<br/>");
