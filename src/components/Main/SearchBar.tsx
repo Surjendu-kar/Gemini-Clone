@@ -1,5 +1,5 @@
 import { FC, KeyboardEvent, useEffect, useRef } from "react";
-import { Box, styled } from "@mui/material";
+import { Box, styled, Tooltip } from "@mui/material";
 import { assets } from "../../assets/assets";
 
 const MainContainer = styled(Box)(({ theme }) => ({
@@ -109,17 +109,65 @@ const SearchBar: FC<Props> = ({ setInput, input, onSent }) => {
           onKeyDown={handleKeyDown}
         />
         <InputBox>
-          <ImgIcon src={assets.gallery_icon} alt="gallery-icon" />
-          <ImgIcon src={assets.mic_icon} alt="mic-icon" />
+          <Tooltip
+            title="Upload image (coming soon)"
+            placement="top"
+            
+            componentsProps={{
+              tooltip: {
+                sx: {
+                  fontSize: "0.9rem",
+                  background: "#f0f4f9",
+                  color: "#000",
+                  boxShadow: "0 2px 2px rgba(0, 0, 0, 0.3)",
+                },
+              },
+            }}
+          >
+            <ImgIcon src={assets.gallery_icon} alt="gallery-icon" />
+          </Tooltip>
+          <Tooltip
+            title="Use microphone (coming soon)"
+            placement="top"
+            
+            componentsProps={{
+              tooltip: {
+                sx: {
+                  fontSize: "0.9rem",
+                  background: "#f0f4f9",
+                  color: "#000",
+                  boxShadow: "0 2px 2px rgba(0, 0, 0, 0.3)",
+                },
+              },
+            }}
+          >
+            <ImgIcon src={assets.mic_icon} alt="mic-icon" />
+          </Tooltip>
           {input.length > 0 && (
-            <ImgIcon
-              src={assets.send_icon}
-              alt="send-icon"
-              onClick={() => {
-                onSent("");
-                setInput("");
+            <Tooltip
+              title="Submit"
+              placement="top"
+              
+              componentsProps={{
+                tooltip: {
+                  sx: {
+                    fontSize: "0.9rem",
+                    background: "#f0f4f9",
+                    color: "#000",
+                    boxShadow: "0 2px 2px rgba(0, 0, 0, 0.3)",
+                  },
+                },
               }}
-            />
+            >
+              <ImgIcon
+                src={assets.send_icon}
+                alt="send-icon"
+                onClick={() => {
+                  onSent("");
+                  setInput("");
+                }}
+              />
+            </Tooltip>
           )}
         </InputBox>
       </SearchBox>

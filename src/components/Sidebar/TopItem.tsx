@@ -1,4 +1,4 @@
-import { Box, styled, Typography } from "@mui/material";
+import { Box, styled, Tooltip, Typography } from "@mui/material";
 import { assets } from "../../assets/assets";
 
 const MainContainer = styled(Box)(({ theme }) => ({
@@ -15,8 +15,9 @@ const ImgIcon = styled("img")(({ theme }) => ({
 }));
 
 const MenuIcon = styled(ImgIcon)(({ theme }) => ({
+  width: "25px",
   display: "block",
-  marginLeft: "10px",
+  margin: "10px",
   cursor: "pointer",
   [theme.breakpoints.down("lg")]: {},
   [theme.breakpoints.down("md")]: {},
@@ -28,7 +29,7 @@ const NewChat = styled(Box)(({ theme }) => ({
   display: "inline-flex",
   alignItems: "center",
   gap: theme.spacing(1),
-  padding: "10px 15px",
+  padding: "8px 10px",
   backgroundColor: "#e6eaf1",
   borderRadius: "50px",
   fontSize: "14px",
@@ -79,6 +80,13 @@ const RecentEntry = styled(Box)(({ theme }) => ({
   [theme.breakpoints.down("sm")]: {},
 }));
 
+const tooltipStyles = {
+  fontSize: "0.9rem",
+  background: "#f0f4f9",
+  color: "#000",
+  boxShadow: "0 2px 2px rgba(0, 0, 0, 0.3)",
+};
+
 function TopItem({
   extended,
   setExtended,
@@ -94,18 +102,38 @@ function TopItem({
 
   return (
     <MainContainer>
-      <MenuIcon
-        src={assets.menu_icon}
-        alt="menu icon"
-        // onClick={() => setExtended((prev) => (prev === true ? false : true))}
-        onClick={() => setExtended((prev) => !prev)} //same logic
-      />
+      <Tooltip
+        title={!extended ? "Expand menu" : "Collapse menu"}
+        placement="bottom"
+        componentsProps={{
+          tooltip: {
+            sx: tooltipStyles,
+          },
+        }}
+      >
+        <MenuIcon
+          src={assets.menu_icon}
+          alt="menu icon"
+          // onClick={() => setExtended((prev) => (prev === true ? false : true))}
+          onClick={() => setExtended((prev) => !prev)} //same logic
+        />
+      </Tooltip>
 
       {/* Add New Chat*/}
-      <NewChat onClick={() => newChat()}>
-        <ImgIcon src={assets.plus_icon} alt="plus icon" />
-        {extended && <Typography> New Chat</Typography>}
-      </NewChat>
+      <Tooltip
+        title="New chat"
+        placement="bottom"
+        componentsProps={{
+          tooltip: {
+            sx: tooltipStyles,
+          },
+        }}
+      >
+        <NewChat onClick={() => newChat()}>
+          <ImgIcon src={assets.plus_icon} alt="plus icon" />
+          {extended && <Typography> New Chat</Typography>}
+        </NewChat>
+      </Tooltip>
 
       {/* Show Previous Chats*/}
       {extended && (

@@ -26,12 +26,45 @@ const ImgIcon = styled("img")(({ theme }) => ({
   },
 }));
 
+const tooltipStyles = {
+  fontSize: "0.9rem",
+  background: "#f0f4f9",
+  color: "#000",
+  boxShadow: "0 2px 2px rgba(0, 0, 0, 0.3)",
+};
+
 function Header() {
   return (
     <HeadContainer>
-      <Typography>Gemini</Typography>
+      <Tooltip
+        title="Google Gemini"
+        placement="right"
+        componentsProps={{
+          tooltip: {
+            sx: tooltipStyles,
+          },
+        }}
+        arrow
+      >
+        <Link
+          href="https://gemini.google.com/"
+          target="_blank"
+          sx={{ textDecoration: "none", color: "#585858" }}
+        >
+          <Typography>Gemini</Typography>
+        </Link>
+      </Tooltip>
       <Link href="https://github.com/Surjendu-kar" target="_blank">
-        <Tooltip title="github link" arrow>
+        <Tooltip
+          title="github link"
+          arrow
+          placement="bottom-end"
+          componentsProps={{
+            tooltip: {
+              sx: tooltipStyles,
+            },
+          }}
+        >
           <ImgIcon src={assets.user_icon} />
         </Tooltip>
       </Link>

@@ -1,4 +1,4 @@
-import { Box, styled, Typography } from "@mui/material";
+import { Box, styled, Tooltip, Typography } from "@mui/material";
 import { assets } from "../../assets/assets";
 
 const MainContainer = styled(Box)(({ theme }) => ({
@@ -49,23 +49,58 @@ const Text = styled(Typography)(() => ({
   margin: 0,
 }));
 
+const tooltipStyles = {
+  fontSize: "0.9rem",
+  background: "#f0f4f9",
+  color: "#000",
+  boxShadow: "0 2px 2px rgba(0, 0, 0, 0.3)",
+};
+
 function BottomItem({ extended }: BottomItemProps) {
   return (
     <MainContainer>
-      <HelpContainer>
-        <ImgIcon src={assets.question_icon} alt="question icon" />
-        {extended && <Text>Help</Text>}
-      </HelpContainer>
+      <Tooltip
+        title="Help (coming soon)"
+        placement="right"
+        componentsProps={{
+          tooltip: {
+            sx: tooltipStyles,
+          },
+        }}
+      >
+        <HelpContainer>
+          <ImgIcon src={assets.question_icon} alt="question icon" />
+          {extended && <Text>Help</Text>}
+        </HelpContainer>
+      </Tooltip>
 
-      <ActivityContainer>
-        <ImgIcon src={assets.history_icon} alt="history icon" />
-        {extended && <Text>Activity</Text>}
-      </ActivityContainer>
+      <Tooltip
+        title="Gemini Apps activity (coming soon)"
+        placement="right"
+        componentsProps={{
+          tooltip: { sx: tooltipStyles },
+        }}
+      >
+        <ActivityContainer>
+          <ImgIcon src={assets.history_icon} alt="history icon" />
+          {extended && <Text>Activity</Text>}
+        </ActivityContainer>
+      </Tooltip>
+      <Tooltip
+        title="Settings (coming soon)"
+        placement="right"
+        componentsProps={{
+          tooltip: {
+            sx: tooltipStyles,
+          },
+        }}
+      >
+        <SettingContainer>
+          <ImgIcon src={assets.setting_icon} alt="setting icon" />
 
-      <SettingContainer>
-        <ImgIcon src={assets.setting_icon} alt="setting icon" />
-        {extended && <Text>Settings</Text>}
-      </SettingContainer>
+          {extended && <Text>Settings</Text>}
+        </SettingContainer>
+      </Tooltip>
     </MainContainer>
   );
 }

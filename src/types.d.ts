@@ -24,3 +24,4 @@ interface ContextType extends SearchBarProps {
   setInput: React.Dispatch<React.SetStateAction<string>>;
   newChat: () => void;
 }
+
