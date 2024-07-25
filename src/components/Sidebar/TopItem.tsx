@@ -7,46 +7,56 @@ const MainContainer = styled(Box)(({ theme }) => ({
   [theme.breakpoints.down("sm")]: {},
 }));
 
-const ImgIcon = styled("img")(({ theme }) => ({
-  width: "20px",
-  [theme.breakpoints.down("lg")]: {},
-  [theme.breakpoints.down("md")]: {},
-  [theme.breakpoints.down("sm")]: {},
-}));
+const ImgIcon = styled("img")<{ isDarkMode: boolean }>(
+  ({ isDarkMode, theme }) => ({
+    width: "20px",
+    filter: isDarkMode ? "invert(1)" : "none",
 
-const MenuIcon = styled(ImgIcon)(({ theme }) => ({
-  width: "25px",
-  display: "block",
-  margin: "10px",
-  cursor: "pointer",
-  [theme.breakpoints.down("lg")]: {},
-  [theme.breakpoints.down("md")]: {},
-  [theme.breakpoints.down("sm")]: {},
-}));
+    [theme.breakpoints.down("lg")]: {},
+    [theme.breakpoints.down("md")]: {},
+    [theme.breakpoints.down("sm")]: {},
+  })
+);
 
-const NewChat = styled(Box)(({ theme }) => ({
-  marginTop: "50px",
-  display: "inline-flex",
-  alignItems: "center",
-  gap: theme.spacing(1),
-  padding: "8px 10px",
-  backgroundColor: "#e6eaf1",
-  borderRadius: "50px",
-  fontSize: "14px",
-  color: "grey",
-  cursor: "pointer",
-  "&:hover": {
-    backgroundColor: "#fff",
-  },
-  [theme.breakpoints.down("lg")]: {},
-  [theme.breakpoints.down("md")]: {},
-  [theme.breakpoints.down("sm")]: {},
-}));
+const MenuIcon = styled(ImgIcon)<{ isDarkMode: boolean }>(
+  ({ theme, isDarkMode }) => ({
+    width: "25px",
+    display: "block",
+    margin: "10px",
+    cursor: "pointer",
+    filter: isDarkMode ? "invert(1)" : "none",
+
+    [theme.breakpoints.down("lg")]: {},
+    [theme.breakpoints.down("md")]: {},
+    [theme.breakpoints.down("sm")]: {},
+  })
+);
+
+const NewChat = styled(Box)<{ isDarkMode: boolean }>(
+  ({ theme, isDarkMode }) => ({
+    marginTop: "50px",
+    display: "inline-flex",
+    alignItems: "center",
+    gap: theme.spacing(1),
+    padding: "8px 10px",
+    backgroundColor: isDarkMode ? "#03030345" : "#e6eaf1",
+    borderRadius: "50px",
+    fontSize: "14px",
+    color: "grey",
+    cursor: "pointer",
+    "&:hover": {
+      backgroundColor: isDarkMode ? "#80808036" : "#fff",
+    },
+    [theme.breakpoints.down("lg")]: {},
+    [theme.breakpoints.down("md")]: {},
+    [theme.breakpoints.down("sm")]: {},
+  })
+);
 
 const RecentChat = styled(Box)(({ theme }) => ({
   display: "flex",
   flexDirection: "column",
-  animation: "fadeIn 1.5s", //declared in index.css file
+  animation: "fadeIn 1.5s",
 
   [theme.breakpoints.down("lg")]: {},
   [theme.breakpoints.down("md")]: {},
@@ -61,24 +71,26 @@ const RecentTypo = styled(Typography)(({ theme }) => ({
   [theme.breakpoints.down("sm")]: {},
 }));
 
-const RecentEntry = styled(Box)(({ theme }) => ({
-  display: "flex",
-  alignItems: "center",
-  gap: theme.spacing(1),
-  padding: "10px",
-  paddingRight: "40px",
-  borderRadius: "50px",
-  color: "#282828",
-  cursor: "pointer",
+const RecentEntry = styled(Box)<{ isDarkMode: boolean }>(
+  ({ theme, isDarkMode }) => ({
+    display: "flex",
+    alignItems: "center",
+    gap: theme.spacing(1),
+    padding: "10px",
+    paddingRight: "40px",
+    borderRadius: "50px",
+    color: isDarkMode ? "#ffffff" : "#282828",
+    cursor: "pointer",
 
-  "&:hover": {
-    backgroundColor: "#e2e6eb",
-  },
+    "&:hover": {
+      backgroundColor: isDarkMode ? "#606060" : "#e2e6eb",
+    },
 
-  [theme.breakpoints.down("lg")]: {},
-  [theme.breakpoints.down("md")]: {},
-  [theme.breakpoints.down("sm")]: {},
-}));
+    [theme.breakpoints.down("lg")]: {},
+    [theme.breakpoints.down("md")]: {},
+    [theme.breakpoints.down("sm")]: {},
+  })
+);
 
 const tooltipStyles = {
   fontSize: "0.9rem",
@@ -94,6 +106,7 @@ function TopItem({
   onSent,
   setRecentPrompt,
   newChat,
+  isDarkMode,
 }: TopItemProps) {
   const loadPrompt = async (prompt: string) => {
     setRecentPrompt(prompt);
@@ -114,6 +127,7 @@ function TopItem({
         <MenuIcon
           src={assets.menu_icon}
           alt="menu icon"
+          isDarkMode={isDarkMode}
           // onClick={() => setExtended((prev) => (prev === true ? false : true))}
           onClick={() => setExtended((prev) => !prev)} //same logic
         />
@@ -129,8 +143,12 @@ function TopItem({
           },
         }}
       >
-        <NewChat onClick={() => newChat()}>
-          <ImgIcon src={assets.plus_icon} alt="plus icon" />
+        <NewChat isDarkMode={isDarkMode} onClick={() => newChat()}>
+          <ImgIcon
+            src={assets.plus_icon}
+            alt="plus icon"
+            isDarkMode={isDarkMode}
+          />
           {extended && <Typography> New Chat</Typography>}
         </NewChat>
       </Tooltip>
@@ -141,8 +159,16 @@ function TopItem({
           <RecentTypo>Recent</RecentTypo>
           {prevPrompts.map((item, index) => {
             return (
-              <RecentEntry onClick={() => loadPrompt(item)} key={index}>
-                <ImgIcon src={assets.message_icon} alt="message icon" />
+              <RecentEntry
+                isDarkMode={isDarkMode}
+                onClick={() => loadPrompt(item)}
+                key={index}
+              >
+                <ImgIcon
+                  src={assets.message_icon}
+                  alt="message icon"
+                  isDarkMode={isDarkMode}
+                />
                 <Typography>{item.slice(0, 18)}..</Typography>
               </RecentEntry>
             );

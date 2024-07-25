@@ -1,3 +1,7 @@
+interface NightMode {
+  isDarkMode: boolean;
+  setIsDarkMode: React.Dispatch<React.SetStateAction<boolean>>;
+}
 interface TopItemProps {
   extended: boolean;
   setExtended: React.Dispatch<React.SetStateAction<boolean>>;
@@ -5,9 +9,10 @@ interface TopItemProps {
   onSent: (prompt: string) => Promise<void>;
   setRecentPrompt: React.Dispatch<React.SetStateAction<string>>;
   newChat: () => void;
+  isDarkMode: boolean;
 }
 
-interface BottomItemProps {
+interface BottomItemProps extends NightMode {
   extended: boolean;
 }
 
@@ -24,4 +29,3 @@ interface ContextType extends SearchBarProps {
   setInput: React.Dispatch<React.SetStateAction<string>>;
   newChat: () => void;
 }
-

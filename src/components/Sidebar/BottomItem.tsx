@@ -12,30 +12,36 @@ const MainContainer = styled(Box)(({ theme }) => ({
   [theme.breakpoints.down("md")]: {},
   [theme.breakpoints.down("sm")]: {},
 }));
-const ImgIcon = styled("img")(({ theme }) => ({
-  width: "20px",
-  [theme.breakpoints.down("lg")]: {},
-  [theme.breakpoints.down("md")]: {},
-  [theme.breakpoints.down("sm")]: {},
-}));
+const ImgIcon = styled("img")<{ isDarkMode: boolean }>(
+  ({ isDarkMode, theme }) => ({
+    width: "20px",
+    filter: isDarkMode ? "invert(1)" : "none",
 
-const HelpContainer = styled(Box)(({ theme }) => ({
-  display: "flex",
-  alignItems: "center",
-  gap: theme.spacing(1),
-  padding: "10px",
-  paddingRight: "10px",
-  borderRadius: "50px",
-  color: "#282828",
-  cursor: "pointer",
+    [theme.breakpoints.down("lg")]: {},
+    [theme.breakpoints.down("md")]: {},
+    [theme.breakpoints.down("sm")]: {},
+  })
+);
 
-  "&:hover": {
-    backgroundColor: "#e2e6eb",
-  },
-  [theme.breakpoints.down("lg")]: {},
-  [theme.breakpoints.down("md")]: {},
-  [theme.breakpoints.down("sm")]: {},
-}));
+const HelpContainer = styled(Box)<{ isDarkMode: boolean }>(
+  ({ isDarkMode, theme }) => ({
+    display: "flex",
+    alignItems: "center",
+    gap: theme.spacing(1),
+    padding: "10px",
+    paddingRight: "10px",
+    borderRadius: "50px",
+    color: "#282828",
+    cursor: "pointer",
+
+    "&:hover": {
+      backgroundColor: isDarkMode ? "#80808036" : "#e2e6eb",
+    },
+    [theme.breakpoints.down("lg")]: {},
+    [theme.breakpoints.down("md")]: {},
+    [theme.breakpoints.down("sm")]: {},
+  })
+);
 
 const ActivityContainer = styled(HelpContainer)(({ theme }) => ({
   [theme.breakpoints.down("lg")]: {},
@@ -49,8 +55,9 @@ const SettingContainer = styled(HelpContainer)(({ theme }) => ({
   [theme.breakpoints.down("sm")]: {},
 }));
 
-const Text = styled(Typography)(() => ({
+const Text = styled(Typography)<{ isDarkMode: boolean }>(({ isDarkMode }) => ({
   margin: 0,
+  color: isDarkMode ? "#ffffff" : "#000000",
 }));
 
 const tooltipStyles = {
@@ -60,20 +67,23 @@ const tooltipStyles = {
   boxShadow: "0 2px 2px rgba(0, 0, 0, 0.3)",
 };
 
-const PopupContainer = styled(Box)<{ extended: boolean }>(({ extended }) => ({
-  position: "absolute",
-  left: extended ? "155px" : "80px",
-  bottom: "20px",
-  width: "300px",
-  backgroundColor: "#f0f4f9",
-  borderRadius: "10px",
-  boxShadow: "0 2px 2px rgba(0, 0, 0, 0.3)",
-  padding: "1rem",
-  display: "flex",
-  flexDirection: "column",
-  gap: "10px",
-  zIndex: 1000,
-}));
+const PopupContainer = styled(Box)<{ isDarkMode: boolean; extended: boolean }>(
+  ({ extended, isDarkMode }) => ({
+    position: "absolute",
+    left: extended ? "305px" : "80px",
+    bottom: "20px",
+    width: "300px",
+    backgroundColor: isDarkMode ? "#272727" : "#f0f4f9",
+    color: isDarkMode ? "#ffffff" : "#000000",
+    borderRadius: "10px",
+    boxShadow: "0 2px 2px rgba(0, 0, 0, 0.3)",
+    padding: "1rem",
+    display: "flex",
+    flexDirection: "column",
+    gap: "10px",
+    zIndex: 1000,
+  })
+);
 
 const PopupBox = styled(Box)(() => ({
   display: "flex",
@@ -81,9 +91,8 @@ const PopupBox = styled(Box)(() => ({
   gap: "10px",
 }));
 
-function BottomItem({ extended }: BottomItemProps) {
+function BottomItem({ extended, isDarkMode, setIsDarkMode }: BottomItemProps) {
   const [isSettingsOpen, setIsSettingsOpen] = useState(false);
-  const [isDarkMode, setIsDarkMode] = useState(false);
 
   return (
     <MainContainer>
@@ -97,9 +106,13 @@ function BottomItem({ extended }: BottomItemProps) {
         }}
         disableHoverListener={isSettingsOpen}
       >
-        <HelpContainer>
-          <ImgIcon src={assets.question_icon} alt="question icon" />
-          {extended && <Text>Help</Text>}
+        <HelpContainer isDarkMode={isDarkMode}>
+          <ImgIcon
+            src={assets.question_icon}
+            alt="question icon"
+            isDarkMode={isDarkMode}
+          />
+          {extended && <Text isDarkMode={isDarkMode}>Help</Text>}
         </HelpContainer>
       </Tooltip>
 
@@ -111,9 +124,13 @@ function BottomItem({ extended }: BottomItemProps) {
         }}
         disableHoverListener={isSettingsOpen}
       >
-        <ActivityContainer>
-          <ImgIcon src={assets.history_icon} alt="history icon" />
-          {extended && <Text>Activity</Text>}
+        <ActivityContainer isDarkMode={isDarkMode}>
+          <ImgIcon
+            src={assets.history_icon}
+            alt="history icon"
+            isDarkMode={isDarkMode}
+          />
+          {extended && <Text isDarkMode={isDarkMode}>Activity</Text>}
         </ActivityContainer>
       </Tooltip>
 
@@ -126,14 +143,21 @@ function BottomItem({ extended }: BottomItemProps) {
           },
         }}
       >
-        <SettingContainer onClick={() => setIsSettingsOpen(!isSettingsOpen)}>
-          <ImgIcon src={assets.setting_icon} alt="setting icon" />
-          {extended && <Text>Settings</Text>}
+        <SettingContainer
+          isDarkMode={isDarkMode}
+          onClick={() => setIsSettingsOpen(!isSettingsOpen)}
+        >
+          <ImgIcon
+            src={assets.setting_icon}
+            alt="setting icon"
+            isDarkMode={isDarkMode}
+          />
+          {extended && <Text isDarkMode={isDarkMode}>Settings</Text>}
         </SettingContainer>
       </Tooltip>
 
       {isSettingsOpen && (
-        <PopupContainer extended={extended}>
+        <PopupContainer extended={extended} isDarkMode={isDarkMode}>
           <PopupBox>
             <ExtensionIcon />
             <Typography>Extensions</Typography>

@@ -34,13 +34,16 @@ const MainHeading = styled("span")(({ theme }) => ({
     fontSize: "2.5rem",
   },
 }));
-const Title = styled(Typography)(({ theme }) => ({
-  color: "#585858",
-  fontSize: "17px",
-  [theme.breakpoints.down("lg")]: {},
-  [theme.breakpoints.down("md")]: {},
-  [theme.breakpoints.down("sm")]: { fontSize: "15px" },
-}));
+const Title = styled(Typography)<{ isDarkMode: boolean }>(
+  ({ isDarkMode, theme }) => ({
+    color: isDarkMode ? "#ffffff" : "#585858",
+
+    fontSize: "17px",
+    [theme.breakpoints.down("lg")]: {},
+    [theme.breakpoints.down("md")]: {},
+    [theme.breakpoints.down("sm")]: { fontSize: "15px" },
+  })
+);
 
 const Cards = styled(Box)(({ theme }) => ({
   display: "grid",
@@ -54,10 +57,10 @@ const Cards = styled(Box)(({ theme }) => ({
     padding: "10px",
   },
 }));
-const Card = styled(Box)(({ theme }) => ({
+const Card = styled(Box)<{ isDarkMode: boolean }>(({ isDarkMode, theme }) => ({
   height: "200px",
   padding: "15px",
-  backgroundColor: "#f0f4f9",
+  backgroundColor: isDarkMode ? "#272727" : "#f0f4f9",
   borderRadius: "10px",
   position: "relative",
   cursor: "pointer",
@@ -71,20 +74,28 @@ const Card = styled(Box)(({ theme }) => ({
   },
 }));
 
-const ImgIcon = styled("img")(({ theme }) => ({
-  width: "35px",
-  padding: "5px",
-  position: "absolute",
-  backgroundColor: "white",
-  borderRadius: "20px",
-  bottom: "10px",
-  right: "10px",
-  [theme.breakpoints.down("lg")]: {},
-  [theme.breakpoints.down("md")]: {},
-  [theme.breakpoints.down("sm")]: {},
-}));
+const ImgIcon = styled("img")<{ isDarkMode: boolean }>(
+  ({ isDarkMode, theme }) => ({
+    width: "35px",
+    padding: "5px",
+    position: "absolute",
+    backgroundColor: "white",
+    filter: isDarkMode ? "invert(1)" : "none",
 
-const DisplayDefaultData = () => {
+    borderRadius: "20px",
+    bottom: "10px",
+    right: "10px",
+    [theme.breakpoints.down("lg")]: {},
+    [theme.breakpoints.down("md")]: {},
+    [theme.breakpoints.down("sm")]: {},
+  })
+);
+
+interface DisplayDefaultDataProps {
+  isDarkMode: boolean;
+}
+
+const DisplayDefaultData = ({ isDarkMode }: DisplayDefaultDataProps) => {
   return (
     <MainContainer>
       {/* greet */}
@@ -97,26 +108,32 @@ const DisplayDefaultData = () => {
       {/* cards */}
       <Cards>
         {/* card */}
-        <Card>
-          <Title>
+        <Card isDarkMode={isDarkMode}>
+          <Title isDarkMode={isDarkMode}>
             Suggest beautiful places to see on an upcoming road trip
           </Title>
-          <ImgIcon src={assets.compass_icon}></ImgIcon>
+          <ImgIcon src={assets.compass_icon} isDarkMode={isDarkMode}></ImgIcon>
         </Card>
         {/* card */}
-        <Card>
-          <Title>Briefly Summarized this concept: urban planning</Title>
-          <ImgIcon src={assets.bulb_icon}></ImgIcon>
+        <Card isDarkMode={isDarkMode}>
+          <Title isDarkMode={isDarkMode}>
+            Briefly Summarized this concept: urban planning
+          </Title>
+          <ImgIcon src={assets.bulb_icon} isDarkMode={isDarkMode}></ImgIcon>
         </Card>
         {/* card */}
-        <Card>
-          <Title>Brainstorm team bonding activities for our work retreat</Title>
-          <ImgIcon src={assets.message_icon}></ImgIcon>
+        <Card isDarkMode={isDarkMode}>
+          <Title isDarkMode={isDarkMode}>
+            Brainstorm team bonding activities for our work retreat
+          </Title>
+          <ImgIcon src={assets.message_icon} isDarkMode={isDarkMode}></ImgIcon>
         </Card>
         {/* card */}
-        <Card>
-          <Title>Improve the readability of the following code</Title>
-          <ImgIcon src={assets.code_icon}></ImgIcon>
+        <Card isDarkMode={isDarkMode}>
+          <Title isDarkMode={isDarkMode}>
+            Improve the readability of the following code
+          </Title>
+          <ImgIcon src={assets.code_icon} isDarkMode={isDarkMode}></ImgIcon>
         </Card>
       </Cards>
     </MainContainer>

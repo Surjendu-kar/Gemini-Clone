@@ -7,17 +7,24 @@ import { useContext } from "react";
 import { Context } from "../../context/Context";
 import DisplayData from "./DisplayData";
 
-const MainContainer = styled(Box)(({ theme }) => ({
-  flex: 1,
-  minHeight: "100vh",
-  paddingBottom: "15vh",
-  position: "relative",
-  [theme.breakpoints.down("lg")]: {},
-  [theme.breakpoints.down("md")]: {},
-  [theme.breakpoints.down("sm")]: {},
-}));
+const MainContainer = styled(Box)<{ isDarkMode: boolean }>(
+  ({ theme, isDarkMode }) => ({
+    flex: 1,
+    minHeight: "100vh",
+    paddingBottom: "15vh",
+    position: "relative",
+    backgroundColor: isDarkMode ? "#030303f5" : "#fff",
+    color: isDarkMode ? "#ffffff" : "#000000",
+    [theme.breakpoints.down("lg")]: {},
+    [theme.breakpoints.down("md")]: {},
+    [theme.breakpoints.down("sm")]: {},
+  })
+);
 
-const Main = () => {
+interface MainProps {
+  isDarkMode: boolean;
+}
+const Main = ({ isDarkMode }: MainProps) => {
   const context = useContext(Context);
 
   const {
@@ -30,10 +37,10 @@ const Main = () => {
     setInput,
   } = context;
   return (
-    <MainContainer>
+    <MainContainer isDarkMode={isDarkMode}>
       <Header />
       {!showResult ? (
-        <DisplayDefaultData />
+        <DisplayDefaultData isDarkMode={isDarkMode} />
       ) : (
         <DisplayData
           recentPrompt={recentPrompt}
@@ -41,7 +48,7 @@ const Main = () => {
           loading={loading}
         />
       )}
-      <SearchBar setInput={setInput} input={input} onSent={onSent} />
+      <SearchBar setInput={setInput} input={input} onSent={onSent} isDarkMode={isDarkMode} />
     </MainContainer>
   );
 };
