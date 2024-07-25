@@ -1,4 +1,4 @@
-import { Box, Typography } from "@mui/material";
+import { Box, Link, Tooltip, Typography } from "@mui/material";
 import { assets } from "../../assets/assets";
 import { styled } from "@mui/system";
 
@@ -30,7 +30,11 @@ function Header() {
   return (
     <HeadContainer>
       <Typography>Gemini</Typography>
-      <ImgIcon src={assets.user_icon} />
+      <Link href="https://github.com/Surjendu-kar" target="_blank">
+        <Tooltip title="github link" arrow>
+          <ImgIcon src={assets.user_icon} />
+        </Tooltip>
+      </Link>
     </HeadContainer>
   );
 }

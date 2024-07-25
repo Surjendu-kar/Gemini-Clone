@@ -103,7 +103,7 @@ function TopItem({
 
       {/* Add New Chat*/}
       <NewChat onClick={() => newChat()}>
-        <ImgIcon src={assets.plus_icon} alt="plus icon"></ImgIcon>
+        <ImgIcon src={assets.plus_icon} alt="plus icon" />
         {extended && <Typography> New Chat</Typography>}
       </NewChat>
 
