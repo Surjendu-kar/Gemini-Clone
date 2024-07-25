@@ -3,7 +3,7 @@ import Main from "./components/Main/Main";
 import Sidebar from "./components/Sidebar/Sidebar";
 
 function App() {
-  const [isDarkMode, setIsDarkMode] = useState(false);
+  const [isDarkMode, setIsDarkMode] = useState(true);
 
   return (
     <>
