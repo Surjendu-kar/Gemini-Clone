@@ -1,4 +1,4 @@
-import { FC, KeyboardEvent } from "react";
+import { FC, KeyboardEvent, useEffect, useRef } from "react";
 import { Box, styled } from "@mui/material";
 import { assets } from "../../assets/assets";
 
@@ -88,10 +88,20 @@ const SearchBar: FC<Props> = ({ setInput, input, onSent }) => {
       setInput("");
     }
   };
+
+  useEffect(() => {
+    if (inputRef.current) {
+      inputRef.current.focus();
+    }
+  }, []);
+
+  const inputRef = useRef<HTMLInputElement>(null);
+
   return (
     <MainContainer>
       <SearchBox>
         <InputField
+          ref={inputRef}
           type="text"
           placeholder="Enter a prompt here"
           onChange={(e) => setInput(e.target.value)}
